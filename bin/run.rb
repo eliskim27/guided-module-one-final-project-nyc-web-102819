@@ -21,8 +21,8 @@ def get_user_input
     gets.chomp
 end
 
-def call_api(city_name)
-    url = "http://api.openweathermap.org/data/2.5/weather?q=#{city_name}&APPID=827a998e41cda6984e61e05673fb503b"
+def call_api(city_name,country_code="US")
+    url = "http://api.openweathermap.org/data/2.5/weather?q=#{city_name},#{country_code}&APPID=827a998e41cda6984e61e05673fb503b"
     response = RestClient.get(url)
     parse_response(response)
 end
