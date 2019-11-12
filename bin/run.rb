@@ -13,11 +13,11 @@ def run
 end
 
 def welcome
-    puts "welcome"
+    puts "Welcome! Let's look at some weather!"
 end
 
 def get_user_input
-    puts "Please enter a city:"
+    puts "Please enter a (US) city:"
     gets.chomp
 end
 
