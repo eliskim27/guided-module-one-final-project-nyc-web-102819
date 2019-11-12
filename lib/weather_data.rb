@@ -30,15 +30,16 @@ def convert_data(response)
     puts "Today's high 📈: #{temp_max}°F"
     puts humidity = response["main"]["humidity"]
     puts wind_speed = response["wind"]["speed"]
-    wind_direction = (response["wind"]["deg"])
+    puts wind_direction = (response["wind"]["deg"])
     sunrise = response["sys"]["sunrise"]
     puts "Sun will rise at: #{Time.at(sunrise).to_datetime}"
     sunset = response["sys"]["sunset"]
     puts "Sun will set at: #{Time.at(sunset).to_datetime}"
     rain = response["rain"]
+    snow = response["snow"]
     #!response["rain"].empty? ? puts rain : nil
     #puts snow if !response["snow"].empty?
 
-    binding.pry
+    
 end
 
