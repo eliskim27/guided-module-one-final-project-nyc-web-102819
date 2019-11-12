@@ -1,10 +1,7 @@
-Learn more or give us feedback
 require 'pry'
 require_relative '../config/environment'
 
 require "tty-prompt"
-
-
 
 class Search
     def run
