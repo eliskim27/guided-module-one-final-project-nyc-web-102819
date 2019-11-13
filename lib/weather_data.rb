@@ -40,6 +40,6 @@ def convert_data(response)
     #!response["rain"].empty? ? puts rain : nil
     #puts snow if !response["snow"].empty?
 
-    
+    save_and_favorite(name)
 end
 
