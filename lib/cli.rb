@@ -2,18 +2,8 @@ class Cli
     def run
         welcome
         welcome_options
-        # new search or view favorite ?
-        #       > favortie = list all user favorites ==> selects location ==> 
-        #       > run taht search or delete from favorites
-        #       > if deleted => * new search or view favorite *
-        # city_name = get_user_input
-        # response = call_api(city_name)
-        # convert_data(response)
-        #save_and_favorite
-        # binding.pry
-        
     end
-    
+
     def welcome
         puts "Welcome! Let's look at some weather!"
         prompt = TTY::Prompt.new
@@ -45,7 +35,6 @@ class Cli
             end
         else 
             validate_password
-            # binding.pry
         end
     end
 
@@ -76,39 +65,45 @@ class Cli
     end
 
     def save_and_favorite(name)
-        prompt = TTY::Prompt.new
-        choice = prompt.select("Would you like to save this location to your favorites?") do |menu|
-            menu.choice 'Yes'
-            menu.choice 'No'
+        # if this city name exists in users favorites, end.
+        if my_favorites.include?(name)
+        else
+            prompt = TTY::Prompt.new
+            choice = prompt.select("Would you like to save this location to your favorites?") do |menu|
+                menu.choice 'Yes'
+                menu.choice 'No'
+            end
         end
         if choice == 'Yes'
             Location.create(name: name)
             Favorite.create(user_id:@current_user_id,location_id:Location.find_by(name:name).id)
             
-        # elsif choice == 'No'
+        # elsif choice == 'No'  ***** Lets implement some logic so our program redirects
             
         end
     end
 
     def welcome_options
-    # new search or view favorite ?
-            #       > favortie = list all user favorites ==> selects location ==> 
-            #       > run taht search or delete from favorites
-            #       > if deleted => * new search or view favorite *
-        prompt = TTY::Prompt.new
-        choice = prompt.select("Would you like to do?") do |menu|
-            menu.choice 'Make a new search'
-            menu.choice "View my favorites"
-        end
-        if choice == 'View my favorites'
-            city = prompt.select("Please select....", my_favorites)
-            search_or_delete(city)
-        elsif choice == 'Make a new search'
+        # if users favorites are empty, 
+        if my_favorites.empty?
             city_name = get_user_input
             response = call_api(city_name)
             convert_data(response)
+        else
+            prompt = TTY::Prompt.new
+            choice = prompt.select("Would you like to do?") do |menu|
+                menu.choice 'Make a new search'
+                menu.choice "View my favorites"
+            end
+            if choice == 'View my favorites'
+                city = prompt.select("Please select....", my_favorites)
+                search_or_delete(city)
+            elsif choice == 'Make a new search'
+                city_name = get_user_input
+                response = call_api(city_name)
+                convert_data(response)
+            end
         end
-        # search_or_delete
     end
 
     def search_or_delete(city)
@@ -118,16 +113,17 @@ class Cli
             menu.choice "Delete from favorites"
         end
         if choice == "Search location's weather"
-
-
-            # binding.pry
             response = call_api(city)
             convert_data(response)
 
         elsif choice == "Delete from favorites"
-        Favorite.where(user_id: @current_user_id).where()
+            binding.pry
+            # delete 
+        Favorite.where(user_id: @current_user_id)#.where(location_id:(Location.all.find_by(location.name == city)))
+        # above line found my favorites,
+        # we want to find the location id that matches the city passed in
+        # delete that from favorites
         end
-        binding.pry
     end
 
     def my_favorites
