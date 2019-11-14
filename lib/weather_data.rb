@@ -3,10 +3,18 @@ def get_user_input
     gets.chomp
 end
 
-def call_api(city_name,country_code="US")
-    url = "http://api.openweathermap.org/data/2.5/weather?q=#{city_name},#{country_code}&APPID=827a998e41cda6984e61e05673fb503b"
-    response = RestClient.get(url)
-    parse_response(response)
+def call_api(city_name)
+    url = "http://api.openweathermap.org/data/2.5/weather?q=#{city_name}&APPID=827a998e41cda6984e61e05673fb503b"
+    begin
+        response=RestClient.get(url)
+        rescue 
+        puts "Couldn't find find that location"
+        puts ""
+        puts "*  *  *  *  *  *  *  *  *"
+        
+        return call_api(get_user_input)
+    end
+        parse_response(response)     
 end
 
 def parse_response(response)
@@ -79,7 +87,6 @@ def convert_data(response)
         puts "Sun will rise at: #{Time.at(sunrise).to_datetime}"
     sunset = response["sys"]["sunset"]
         puts "Sun will set at: #{Time.at(sunset).to_datetime}"
-    binding.pry
     save_and_favorite(namecountry)
 end
 

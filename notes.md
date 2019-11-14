@@ -1,2 +1,4 @@
 known issues:
-- from favorites, location city, and country
+Our API has trouble distinguishing between multiple cities with the same name in the same country.
+
+- Can't convert Time data regarding time zones
