@@ -8,3 +8,4 @@ gem "require_all"
 
 gem "rest-client"   # √
 gem 'tty-prompt', '~> 0.19.0'
+gem 'colorize'
