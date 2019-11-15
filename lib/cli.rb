@@ -75,10 +75,10 @@ class Cli
         @current_user_id = User.last.id
     end
 
-    def save_and_favorite(name)
+    def save_and_favorite(namecountry)
         puts ""
         puts "*  *  *  *  *  *  *  *  *"
-        if my_favorites_by_name.include?(name)
+        if my_favorites_by_name.include?(namecountry)
         else
             prompt = TTY::Prompt.new
             choice = prompt.select("Would you like to save this location to your favorites?") do |menu|
@@ -87,8 +87,8 @@ class Cli
             end
         end
         if choice == 'Yes'
-            Location.create(name: name)
-            Favorite.create(user_id:@current_user_id,location_id:Location.find_by(name:name).id)            
+            Location.create(name: namecountry)
+            Favorite.create(user_id:@current_user_id,location_id:Location.find_by(name:namecountry).id)            
         end
     end
 
