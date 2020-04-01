@@ -7,7 +7,7 @@ class Cli
     def welcome
         puts ""
         puts "*  *  *  *  *  *  *  *  *"
-        puts "Welcome! Let's look at some weather!".blue
+        puts "Welcome! Let's look at some weather!"
         prompt = TTY::Prompt.new
         puts ""
         choice = prompt.select("Login or Create an Account:".blue) do |menu|
